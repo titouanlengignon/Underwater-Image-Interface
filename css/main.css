@@ -1,0 +1,230 @@
+/* Style general de la page */
+* {
+    box-sizing: border-box;
+  }
+  body {
+    font-size: 14px;
+  }
+
+/* Fond de la page avec le dégradé */
+  .v1_2 {
+    width: 100%;
+    height: 1024px;
+    background: linear-gradient(rgba(0,33,71,1), rgba(0,80,173,1));
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+
+/*  barre de navigation (titre) */
+  .v2_20 {
+    width: 100%;
+    height: 97px;
+    background: rgba(42,157,143,1);
+    opacity: 1;
+    position: absolute;
+    top: 3px;
+    left: 100px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* Police de la barre de navigation */
+  .v2_19 {
+    width: 100%;
+    color: rgba(245,245,220,1);
+    position: absolute;
+    top: 25px;
+    left: 121px;
+    font-family: Poppins;
+    font-weight: Black;
+    font-size: 36px;
+    opacity: 1;
+    text-align: left;
+  }
+
+/* Conteneur principal de la page */
+  .v2_28 {
+    width: 760px;
+    height: 625px;
+    background: rgba(3,97,191,1);
+    opacity: 0.550000011920929;
+    position: absolute;
+    top: 155px;
+    left: 176px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* bouton de load */
+  .v7_2 {
+    width: 133px;
+    height: 56px;
+    background: rgba(121,215,246,1);
+    opacity: 1;
+    position: absolute;
+    top: 820px;
+    left: 491px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    overflow: hidden;
+  }
+
+  /* Bouton fleche gauche */
+  .v7_5 {
+    width: 108px;
+    height: 46px;
+    background: rgba(121,215,246,1);
+    opacity: 1;
+    position: absolute;
+    top: 823px;
+    left: 260px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    overflow: hidden;
+  }
+
+  /* Bouton fleche droite */
+  .v7_6 {
+    width: 108px;
+    height: 46px;
+    background: rgba(121,215,246,1);
+    opacity: 1;
+    position: absolute;
+    top: 823px;
+    left: 747px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    overflow: hidden;
+  }
+
+  /* Texte du bouton load */
+  .v7_14 {
+    width: 71px;
+    color: rgba(0,0,0,1);
+    position: absolute;
+    top: 827px;
+    left: 522px;
+    font-family: Roboto;
+    font-weight: Medium;
+    font-size: 32px;
+    opacity: 1;
+    text-align: left;
+  }
+
+  /* conteneur des résultats */
+  .v7_15 {
+    width: 303px;
+    height: 625px;
+    background: rgba(3,97,191,1);
+    opacity: 0.8999999761581421;
+    position: absolute;
+    top: 155px;
+    left: 1037px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* Bouton download */
+  .v7_16 {
+    width: 303px;
+    height: 65px;
+    background: rgba(245,245,220,1);
+    opacity: 1;
+    position: absolute;
+    top: 823px;
+    left: 1037px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* Texte de List */
+  .v8_17 {
+    width: 204px;
+    color: rgba(245,245,220,1);
+    position: absolute;
+    top: 241px;
+    left: 1152px;
+    font-family: Roboto;
+    font-weight: ExtraBold;
+    font-size: 32px;
+    opacity: 1;
+    text-align: left;
+  }
+
+  /* Texte de Results */
+  .v8_18 {
+    width: 170px;
+    color: rgba(245,245,220,1);
+    position: absolute;
+    top: 359px;
+    left: 1152px;
+    font-family: Roboto;
+    font-weight: ExtraBold;
+    font-size: 32px;
+    opacity: 1;
+    text-align: left;
+  }
+
+  /* Texte de Category */
+  .v8_19 {
+    width: 184px;
+    color: rgba(245,245,220,1);
+    position: absolute;
+    top: 490px;
+    left: 1152px;
+    font-family: Roboto;
+    font-weight: ExtraBold;
+    font-size: 32px;
+    opacity: 1;
+    text-align: left;
+  }
+
+  /* Texte de Download */
+  .v8_20 {
+    width: 187px;
+    color: rgba(0,0,0,1);
+    position: absolute;
+    top: 835px;
+    left: 1114px;
+    font-family: Roboto;
+    font-weight: Medium;
+    font-size: 32px;
+    opacity: 1;
+    text-align: left;
+  }
+  
+  /* Texte de Uncertainty */
+  .v8_21 {
+    width: 194px;
+    color: rgba(245,245,220,1);
+    position: absolute;
+    top: 609px;
+    left: 1152px;
+    font-family: Roboto;
+    font-weight: ExtraBold;
+    font-size: 32px;
+    opacity: 1;
+    text-align: left;
+  }
