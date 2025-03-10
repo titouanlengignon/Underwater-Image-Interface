@@ -32,7 +32,7 @@ def upload_file():
             file.save(file_path)
             return f"Fichier téléchargé avec succès : {file.filename}"
 
-    return render_template('upload.html')
+    return render_template('index.html')
 
 if __name__ == '__main__':
     print("Application lancée")
