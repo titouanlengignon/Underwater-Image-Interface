@@ -1,0 +1,17 @@
+# Fichiers système (Windows, macOS)
+.DS_Store
+Thumbs.db
+
+# Dossiers et fichiers de logs
+logs/
+*.log
+
+# Dépendances des projets Node.js (si applicable)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environnements et variables sensibles
+.env
+.env.local
+.env.*.local
