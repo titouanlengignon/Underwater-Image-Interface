@@ -36,4 +36,4 @@ def upload_file():
 
 if __name__ == '__main__':
     print("Application lancée")
-    app.run(debug=True,port=5500)
+    app.run(debug=True,port=5501)
