@@ -1,230 +1,122 @@
-/* Style general de la page */
+/* Style général */
 * {
-    box-sizing: border-box;
-  }
-  body {
-    font-size: 14px;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-/* Fond de la page avec le dégradé */
-  .v1_2 {
-    width: 100%;
-    height: 1024px;
-    background: linear-gradient(rgba(0,33,71,1), rgba(0,80,173,1));
-    opacity: 1;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-  }
+html {
+  font-size: 1rem; /* Base scalable */
+}
 
-/*  barre de navigation (titre) */
-  .v2_20 {
-    width: 100%;
-    height: 97px;
-    background: rgba(42,157,143,1);
-    opacity: 1;
-    position: absolute;
-    top: 3px;
-    left: 100px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    overflow: hidden;
-  }
+body {
+  background: linear-gradient(to bottom, #002147, #0050ad);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  /* Police de la barre de navigation */
-  .v2_19 {
-    width: 100%;
-    color: rgba(245,245,220,1);
-    position: absolute;
-    top: 25px;
-    left: 121px;
-    font-family: Poppins;
-    font-weight: Black;
-    font-size: 36px;
-    opacity: 1;
-    text-align: left;
-  }
+/* Conteneur principal */
+.container {
+  width: 90%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-/* Conteneur principal de la page */
-  .v2_28 {
-    width: 760px;
-    height: 625px;
-    background: rgba(3,97,191,1);
-    opacity: 0.550000011920929;
-    position: absolute;
-    top: 155px;
-    left: 176px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    overflow: hidden;
-  }
+/* Barre de navigation */
+.bar {
+  width: 100%;
+  background: #2a9d8f;
+  border-radius: 1.5rem;
+  padding: 0.8rem;
+  text-align: center;
+}
 
-  /* bouton de load */
-  .v7_2 {
-    width: 133px;
-    height: 56px;
-    background: rgba(121,215,246,1);
-    opacity: 1;
-    position: absolute;
-    top: 820px;
-    left: 491px;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    overflow: hidden;
-  }
+.bar-title {
+  color: beige;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
 
-  /* Bouton fleche gauche */
-  .v7_5 {
-    width: 108px;
-    height: 46px;
-    background: rgba(121,215,246,1);
-    opacity: 1;
-    position: absolute;
-    top: 823px;
-    left: 260px;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    overflow: hidden;
-  }
+/* Section principale */
+.main-section {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 50vh; /* Même hauteur pour les deux rectangles */
+  margin-top: 2rem;
+}
 
-  /* Bouton fleche droite */
-  .v7_6 {
-    width: 108px;
-    height: 46px;
-    background: rgba(121,215,246,1);
-    opacity: 1;
-    position: absolute;
-    top: 823px;
-    left: 747px;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    overflow: hidden;
-  }
+/* Image container = rect gauche*/
+.image-container {
+  width: 60%;
+  height: 100%;
+  background: rgba(3, 97, 191, 0.8);
+  border-radius: 1rem;
+}
 
-  /* Texte du bouton load */
-  .v7_14 {
-    width: 71px;
-    color: rgba(0,0,0,1);
-    position: absolute;
-    top: 827px;
-    left: 522px;
-    font-family: Roboto;
-    font-weight: Medium;
-    font-size: 32px;
-    opacity: 1;
-    text-align: left;
-  }
+/* Sidebar = rect droite*/
+.sidebar {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(3, 97, 191, 0.9);
+  padding: 1rem;
+  border-radius: 1rem;
+}
 
-  /* conteneur des résultats */
-  .v7_15 {
-    width: 303px;
-    height: 625px;
-    background: rgba(3,97,191,1);
-    opacity: 0.8999999761581421;
-    position: absolute;
-    top: 155px;
-    left: 1037px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    overflow: hidden;
-  }
+/* Texte qui s'ajuste automatiquement */
+.option-text {
+  color: beige;/*couleur texte*/
+  font-weight: bold;/*texte en gras*/
+  font-size: clamp(1rem, 1vw, 1rem); /* Définit la taille de la police de manière dynamique. Elle sera calculée en fonction de la largeur de la fenêtre du navigateur (avec vw pour les unités relatives à la largeur de la fenêtre), mais sera comprise entre 0.8rem (taille minimale) et 1rem (taille maximale). */
+  padding: 0.5rem;
+  text-align: center;/*Centre le texte horizontalement*/
+  display: flex;
+  align-items: center;
+  justify-content: left;/*centre sur la flexbox*/ 
+  gap: 0.5rem;/*Définit un écart de 0.5rem entre les éléments enfants dans le conteneur flex*/
+  white-space: nowrap; /* Empêche les retours à la ligne */
+  overflow: hidden; /* cache le texte qui dépasse */
+  text-overflow:ellipsis ;/*ajoute les points de suspension */
+}
 
-  /* Bouton download */
-  .v7_16 {
-    width: 303px;
-    height: 65px;
-    background: rgba(245,245,220,1);
-    opacity: 1;
-    position: absolute;
-    top: 823px;
-    left: 1037px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    overflow: hidden;
-  }
 
-  /* Texte de List */
-  .v8_17 {
-    width: 204px;
-    color: rgba(245,245,220,1);
-    position: absolute;
-    top: 241px;
-    left: 1152px;
-    font-family: Roboto;
-    font-weight: ExtraBold;
-    font-size: 32px;
-    opacity: 1;
-    text-align: left;
-  }
+/* Boutons sous l'image */
+.controls {
+  display: flex;
+  justify-content: space-between; /* Espacement égal */
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 35rem; /* Largeur entre les trois bouton de gauche et le download */
+}
 
-  /* Texte de Results */
-  .v8_18 {
-    width: 170px;
-    color: rgba(245,245,220,1);
-    position: absolute;
-    top: 359px;
-    left: 1152px;
-    font-family: Roboto;
-    font-weight: ExtraBold;
-    font-size: 32px;
-    opacity: 1;
-    text-align: left;
-  }
+.button-arrow, .button-load, .button-download {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  background: #79d7f6;
 
-  /* Texte de Category */
-  .v8_19 {
-    width: 184px;
-    color: rgba(245,245,220,1);
-    position: absolute;
-    top: 490px;
-    left: 1152px;
-    font-family: Roboto;
-    font-weight: ExtraBold;
-    font-size: 32px;
-    opacity: 1;
-    text-align: left;
-  }
+}
 
-  /* Texte de Download */
-  .v8_20 {
-    width: 187px;
-    color: rgba(0,0,0,1);
-    position: absolute;
-    top: 835px;
-    left: 1114px;
-    font-family: Roboto;
-    font-weight: Medium;
-    font-size: 32px;
-    opacity: 1;
-    text-align: left;
-  }
-  
-  /* Texte de Uncertainty */
-  .v8_21 {
-    width: 194px;
-    color: rgba(245,245,220,1);
-    position: absolute;
-    top: 609px;
-    left: 1152px;
-    font-family: Roboto;
-    font-weight: ExtraBold;
-    font-size: 32px;
-    opacity: 1;
-    text-align: left;
-  }
+
+/* Bouton Download aligné avec la sidebar */
+.button-download {
+  width: 30%;
+  height: 100%;
+  background: beige;
+  margin-left: auto; /* Décale le bouton à droite */
+}
