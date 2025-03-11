@@ -20,11 +20,18 @@
         <div class="v2_20">
             <div class="v2_19">Interface for Underwater Image Analysis Using Deep Learning AI</div>
         </div>
-        <div class="v2_28"></div>
+        
+        <div class="v2_28">
+            <img src="{{ url_for('uploaded_file', filename=image) }}" alt="{{ image }}" width="300">
+        </div>
+        
         <div class="v7_2"></div>
         <div class="v7_5"></div>
         <div class="v7_6"></div>
-        <div class="v7_14">Load</div>
+
+        <!-- Bouton "Load" corrigé -->
+        <button class="v7_14">Load</button>
+        
         <div class="v7_15"></div>
         <div class="v7_16"></div>
         <div class="v8_17">List</div>
@@ -45,6 +52,30 @@
         <div class="v9_34"></div>
         <div class="v9_35"></div>
     </div>
+
+
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector(".v7_14").addEventListener("click", function(event) {
+                event.preventDefault(); // Empêche l'action par défaut
+                window.open(
+                    "https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2YvcyFCT2Z0RDhCWjBVRHBodUU2alFfUmdFUkhOUVRNQnc%5FZT1Cc21FcXFUbHpFMjAySENOYW13TXF3JmF0PTk&id=E940D159C00FEDE7%21110801&cid=E940D159C00FEDE7",
+                    "width=1000,height=600,left=100,top=100"
+                );
+            });
+        });
+    </script>
+    
+
+    <h2>Images disponibles</h2>
+
+    <div>
+        {% for image in images %}
+            <img src="{{ url_for('uploaded_file', filename=image) }}" alt="{{ image }}" width="300">
+        {% endfor %}
+    </div>
+
 
 </body>
 </html>
