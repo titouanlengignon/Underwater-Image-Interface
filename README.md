@@ -8,11 +8,11 @@ Development of a Web Interface for Underwater Image Analysis Using Deep Learning
 
 ##  Technologies used
 - HTML, CSS, JavaScript
-- Flask
+- 
 - 
 
 ## Project Organisation
-### Underwater-Image-Interface/  <- Our project
+### Underwater-Image-Interface/  <- Your project
 ### ├── assets/                 <- Contains images, fonts, icons, etc.
 ### │   ├── images/             <- Store images of the site
 ### │   ├── fonts/              <- Custom fonts
@@ -26,11 +26,11 @@ Development of a Web Interface for Underwater Image Analysis Using Deep Learning
 ### │   ├── script.js              <- Main JS file
 ### │   ├── animations.js          <- (Optional) Animations and interactions
 ### |
-### ├── components/              <- (Optional) If modular HTML
+### ├── components/              <- (Optional) If you do modular HTML
 ### │   ├── header.html            <- Site header
 ### │   ├── footer.html            <- Site footer
 ### |
-### ├── pages/                   <- (Optional) If multiple pages
+### ├── pages/                   <- (Optional) If you have multiple pages
 ### │   ├── about.html             <- About page
 ### │   ├── contact.html           <- Contact page
 ### |

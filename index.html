@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     
-    <!-- Affichage du site en pc ou mobile -->
+    <!-- Affichage du site en PC ou mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
@@ -51,7 +51,10 @@
             <div class="button-load" onclick="loadImages()">Load</div> <!-- Fonction Load pour afficher les images -->
             <div class="button-arrow button-right">▶</div>
 
-            <div class="button-download">Download</div> 
+            <button class="button-arrow button-right" id="nextImage">▶</button>
+
+            <!-- Bouton pour télécharger l'image sélectionnée -->
+            <button id="downloadBtn" class="button-download" disabled>Download</button>
         </div>
     </div>
 
