@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     
-    <!-- Affichage du site en pc ou mobile -->
+    <!-- Affichage du site en PC ou mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">    <title>Underwater Image Interface</title>
-    
-    <!-- Titre de la page -->
-    <title>Underwater-Image-Interface</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <title>Underwater Image Interface</title>
     
     <!-- Lien vers le fichier CSS -->   
     <link rel="stylesheet" href="css/main.css">
@@ -20,7 +18,9 @@
         </div>
 
         <div class="main-section"> 
-            <div class="image-container"></div>
+            <div class="image-container">
+                <img id="preview" src="#" alt="Aucune image sélectionnée" style="display: none; max-width: 100%;">
+            </div>
             <div class="sidebar">
                 <div class="option-text">📋 List</div>
                     <div class="text-result-List"></div>
@@ -34,13 +34,22 @@
         </div>
 
         <div class="controls">
+            <button class="button-arrow button-left" id="prevImage">◀</button>
 
-                <div class="button-arrow button-left">◀</div>
-                <div class="button-load">Load</div>
-                <div class="button-arrow button-right">▶</div>
+            <!-- Bouton pour sélectionner une image -->
+            <input type="file" id="fileInput" multiple style="display: none;">
+            <button class="button-load" onclick="document.getElementById('fileInput').click();">
+                Select Images
+            </button>
 
-            <div class="button-download">Download</div> 
+            <button class="button-arrow button-right" id="nextImage">▶</button>
+
+            <!-- Bouton pour télécharger l'image sélectionnée -->
+            <button id="downloadBtn" class="button-download" disabled>Download</button>
         </div>
     </div>
+
+    <!-- Lien vers le fichier JavaScript externe -->
+    <script src="js/script.js"></script>
 </body>
 </html>
