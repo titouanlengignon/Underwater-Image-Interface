@@ -56,10 +56,25 @@ body {
 
 /* Image container = rect gauche*/
 .image-container {
-  width: 60%;
+  width: 50%;
   height: 100%;
   background: rgba(3, 97, 191, 0.8);
   border-radius: 1rem;
+  display: flex; /* Active Flexbox */
+  align-items: center; /* Centre verticalement */
+  justify-content: center; /* Centre horizontalement */
+  overflow: hidden; /* Évite les débordements */
+  padding: 1rem;
+
+}
+
+/* Ajustement de l'image */
+.image-preview {
+  max-width: 100%;  /* Pour éviter que l'image dépasse */
+  max-height: 100%;
+  object-fit: contain; /* Conserve le ratio de l'image sans la couper */
+  border-radius: 1rem;
+
 }
 
 /* Sidebar = rect droite*/

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, jsonify
 import os
 
 app = Flask(__name__)
@@ -23,17 +23,26 @@ def upload_file():
     if 'file' not in request.files:
         return "Aucun fichier trouvé", 400
     
-    file = request.files['file']
+    files = request.files.getlist('file')
+    uploaded_files = []
     
-    if file.filename == '':
-        return "Aucun fichier sélectionné", 400
-    
-    if file and allowed_file(file.filename):
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(file_path)
-        return f"Fichier téléchargé avec succès : {file.filename}"
+    for file in files:
+        if file and allowed_file(file.filename):
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(file_path)
+            uploaded_files.append(file_path)
 
-    return "Type de fichier non autorisé", 400
+    # Retourner les chemins des fichiers téléchargés
+    return jsonify(uploaded_files)
+
+@app.route('/images')
+def get_images():
+    # Récupérer tous les fichiers dans le dossier UPLOAD_FOLDER
+    images = []
+    for filename in os.listdir(app.config['UPLOAD_FOLDER']):
+        if allowed_file(filename):
+            images.append(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return jsonify(images)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5501)
+    app.run(debug=True, port=5500)
