@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template, send_from_directory, jsonify
+from flask import Flask, request, render_template, jsonify
 import os
+from app_service import app_service  # Import du blueprint
 
 app = Flask(__name__)
 
@@ -43,6 +44,9 @@ def get_images():
         if allowed_file(filename):
             images.append(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     return jsonify(images)
+
+# Enregistre le blueprint pour l'interférence
+app.register_blueprint(app_service)  # Cela permet d'ajouter les routes du blueprint à l'application principale
 
 if __name__ == '__main__':
     app.run(debug=True, port=5500)

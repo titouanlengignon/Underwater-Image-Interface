@@ -64,7 +64,7 @@ body {
   align-items: center; /* Centre verticalement */
   justify-content: center; /* Centre horizontalement */
   overflow: hidden; /* Évite les débordements */
-  padding: 1rem;
+  padding: 0.8rem;
 
 }
 
@@ -135,3 +135,18 @@ body {
   background: beige;
   margin-left: auto; /* Décale le bouton à droite */
 }
+
+
+.button_interference {
+  width: 30%;
+  height: 100%;
+  margin-left: auto; /* Décale le bouton à droite */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  background: #79d7f6;
+}
+

@@ -2,14 +2,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    
-    <!-- Affichage du site en PC ou mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">    
     <title>Underwater Image Interface</title>
     
-    <!-- Lien vers le fichier CSS -->   
-    <link rel="stylesheet" href="css/main.css">
+    <!-- Lien vers le fichier CSS dans le dossier "css" -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
     <div class="container">
@@ -46,10 +44,14 @@
 
             <!-- Bouton pour télécharger l'image sélectionnée -->
             <button id="downloadBtn" class="button-download" disabled>Download</button>
+            
+            <!-- Bouton pour charger les predictions de l'image  -->
+             <button id="interference" class="button_interference" disabled> Interference</button>
+            
         </div>
     </div>
 
-    <!-- Lien vers le fichier JavaScript externe -->
-    <script src="js/script.js"></script>
+    <!-- Lien vers le fichier JavaScript dans le dossier "js" -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
