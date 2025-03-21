@@ -15,7 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 /* Conteneur principal */
@@ -56,10 +56,25 @@ body {
 
 /* Image container = rect gauche*/
 .image-container {
-  width: 60%;
+  width: 50%;
   height: 100%;
   background: rgba(3, 97, 191, 0.8);
   border-radius: 1rem;
+  display: flex; /* Active Flexbox */
+  align-items: center; /* Centre verticalement */
+  justify-content: center; /* Centre horizontalement */
+  overflow: auto; /* Évite les débordements */
+  padding: 1rem;
+
+}
+
+/* Ajustement de l'image */
+.image-preview {
+  max-width: 100%;  /* Pour éviter que l'image dépasse */
+  max-height: 100%;
+  object-fit: contain; /* Conserve le ratio de l'image sans la couper */
+  border-radius: 1rem;
+
 }
 
 /* Sidebar = rect droite*/
@@ -86,7 +101,7 @@ body {
   justify-content: left;/*centre sur la flexbox*/ 
   gap: 0.5rem;/*Définit un écart de 0.5rem entre les éléments enfants dans le conteneur flex*/
   white-space: nowrap; /* Empêche les retours à la ligne */
-  overflow: hidden; /* cache le texte qui dépasse */
+  overflow: auto; /* cache le texte qui dépasse */
   text-overflow:ellipsis ;/*ajoute les points de suspension */
 }
 
@@ -101,22 +116,93 @@ body {
   width: 35rem; /* Largeur entre les trois bouton de gauche et le download */
 }
 
-.button-arrow, .button-load, .button-download {
+.button-arrow, .button-load, .button-download, .button_interference {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: bold;
   border: none;
   border-radius: 2rem;
   cursor: pointer;
-  background: #79d7f6;
+  background: #9cd8e5;
 
 }
-
 
 /* Bouton Download aligné avec la sidebar */
 .button-download {
   width: 30%;
   height: 100%;
-  background: beige;
-  margin-left: auto; /* Décale le bouton à droite */
+  background: rgb(255, 255, 255);
+  color:#000;
+  margin-left: 10rem; /* Décale le bouton à droite */
 }
+
+/* Effets sur le bouton download */
+.button-download:hover {
+  background: #9cd8e5; 
+  color: #000; 
+  transform: scale(1.03); /* Agrandir légèrement */
+  transition: 0.3s; /* Animation fluide */
+}
+.button-download:active {
+  transform: scale(0.95); 
+}
+
+/* Effets sur les boutons de navigation */
+.button-arrow:hover {
+  background: #ffffff; 
+  color: #000; 
+  transform: scale(1.03); /* Agrandir légèrement */
+  transition: 0.3s; /* Animation fluide */
+}
+.button-arrow:active {
+  transform: scale(0.95); 
+}
+
+/* Effets sur le bouton de chargement */
+.button-load:hover {
+  background: #ffffff; 
+  color: #000; 
+  transform: scale(1.03); /* Agrandir légèrement */
+  transition: 0.3s; /* Animation fluide */
+}
+.button-load:active {
+  transform: scale(0.95); 
+}
+
+/* boutton interference */
+.button_interference {
+  width: 30%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  color:#000;
+  margin-left: 2rem; /* Décale le bouton à droite */
+}
+/* Effets sur le bouton info */
+.button_interference:hover {
+  background: #9cd8e5; 
+  color: #000; 
+  transform: scale(1.03); /* Agrandir légèrement */
+  transition: 0.3s; /* Animation fluide */
+}
+.button_interference:active {
+  transform: scale(0.95); 
+}
+
+
+/* Pied de page 
+#footer {
+  position: fixed;  
+  bottom: -100px;
+  left: 0;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 1rem;
+  transition: bottom 0.5s ease-in-out;
+}
+
+/* Classe qui s'ajoute via JS
+.footer-visible {
+  bottom: 0; Remonte le footer 
+} */

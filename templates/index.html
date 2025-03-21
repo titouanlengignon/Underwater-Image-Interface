@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Affichage du site en PC ou mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <title>Underwater Image Interface</title>
+    
+    <!-- Lien vers le fichier CSS -->   
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="bar">
+            <div class="bar-title">Interface for Underwater Image Analysis Using Deep Learning AI</div>
+        </div>
+
+        <div class="main-section"> 
+            <div class="image-container">
+                <img id="preview" class="image-preview" src="#" alt="Aucune image sélectionnée" style="display: none; max-width: 100%;">
+            </div>
+            <div class="sidebar">
+                <div class="option-text">📋 List</div>
+                    <div class="text-result-List"></div>
+                <div class="option-text">🔍 Results</div>
+                    <div class="text-result-Results"></div>
+                <div class="option-text">🗂️ Category</div>
+                    <div class="text-result-Category"></div>
+                <div class="option-text">❓ Uncertainty</div>
+                    <div class="text-result-Uncertainty"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="button-arrow button-left" id="prevImage">◀</button>
+            <button class="button-arrow button-right" id="nextImage">▶</button>
+
+            <!-- Bouton pour sélectionner une image -->
+            <input type="file" id="fileInput" multiple style="display: none;">
+            <button class="button-load" onclick="document.getElementById('fileInput').click();">
+                Select Images
+            </button>
+
+            <!-- Bouton pour télécharger l'image sélectionnée -->
+            <button id="downloadBtn" class="button-download">
+                ⬇ Download
+            </button>
+
+            <!-- Bouton pour afficher l'info -->
+            <button id="interference" class="button_interference">
+                Interference
+            </button>
+            
+        </div>
+    </div>
+<!--
+    <footer id="footer">
+    <p>© 2024 - Mon site interactif</p>
+    </footer>  -->
+
+    <!-- Lien vers le fichier JavaScript externe -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>  
+
+    <div style="height: 120vh;"></div> <!-- Ajoute de l'espace -->
+</body>
+</html>
+
