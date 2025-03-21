@@ -1,3 +1,5 @@
+// Déclaration des variables
+
 let imageFiles = []; // Stocke les fichiers sélectionnés
 let currentIndex = 0; // Index de l'image affichée
 
@@ -8,6 +10,10 @@ const nextButton = document.getElementById("nextImage");
 const downloadBtn = document.getElementById("downloadBtn");
 const interferenceBtn = document.getElementById("interference");
 
+console.log("Script chargé !");
+
+
+// Evenement : séléction d'images
 fileInput.addEventListener("change", function(event) {
     if (event.target.files.length > 0) {
         imageFiles = Array.from(event.target.files); // Stocker les images
@@ -17,6 +23,7 @@ fileInput.addEventListener("change", function(event) {
     }
 });
 
+// Affichage de l'image
 function displayImage() {
     if (imageFiles.length > 0) {
         const file = imageFiles[currentIndex];
@@ -58,6 +65,15 @@ downloadBtn.addEventListener("click", function() {
         a.click();
         document.body.removeChild(a);
     }
+});
+
+// Effets sur le bouton download
+downloadBtn.addEventListener("mouseenter", () => {
+    downloadBtn.innerHTML = "📥 Download";
+});
+
+downloadBtn.addEventListener("mouseleave", () => {
+    downloadBtn.innerHTML = "⬇ Download";
 });
 
 // Interférence (requête Flask)
