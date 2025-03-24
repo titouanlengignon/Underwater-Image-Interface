@@ -46,7 +46,12 @@ def get_images():
     return jsonify(images)
 
 # Enregistre le blueprint pour l'interférence
-app.register_blueprint(app_service)  # Cela permet d'ajouter les routes du blueprint à l'application principale
+#app.register_blueprint(app_service)  # Cela permet d'ajouter les routes du blueprint à l'application principale
+
+@app.route('/interference', methods=['GET'])
+def interference():
+    print("Ça marche")  # Affiche ce message dans la console si tout fonctionne
+    return jsonify({"message": "Interférence exécutée avec succès !"})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5500)
