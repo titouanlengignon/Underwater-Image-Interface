@@ -128,7 +128,7 @@ body {
 }
 
 
-/* Bouton Download aligné avec la sidebar */
+/* Bouton Download */
 .button-download {
   width: 30%;
   height: 100%;
@@ -137,7 +137,7 @@ body {
 }
 
 
-.button_interference {
+.button_inference {
   width: 30%;
   height: 100%;
   margin-left: auto; /* Décale le bouton à droite */
@@ -150,3 +150,15 @@ body {
   background: #79d7f6;
 }
 
+.button-save {
+  width: 30%;
+  height: 100%;
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  background: #79d7f6;
+}
