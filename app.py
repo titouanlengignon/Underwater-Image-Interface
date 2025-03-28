@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, jsonify, send_from_directory
 import os
 import time
 
-app = Flask(__name__)
+app = Flask(__name__,)
 
 UPLOAD_FOLDER = 'telechargements'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}

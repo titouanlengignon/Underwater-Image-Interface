@@ -1,4 +1,5 @@
 // Déclaration des variables
+
 let imageFiles = []; // Stocke les fichiers sélectionnés
 let currentIndex = 0; // Index de l'image affichée
 
@@ -13,6 +14,7 @@ const inferenceBtn = document.getElementById("inference");
 console.log("Script chargé !");
 
 // Événement : sélection d'images
+
 fileInput.addEventListener("change", function(event) {
     if (event.target.files.length > 0) {
         imageFiles = Array.from(event.target.files); // Stocker les images
@@ -26,6 +28,7 @@ fileInput.addEventListener("change", function(event) {
 });
 
 // Affichage de l'image sélectionnée
+
 function displayImage() {
     if (imageFiles.length > 0) {
         const file = imageFiles[currentIndex];
@@ -35,6 +38,7 @@ function displayImage() {
             preview.src = e.target.result;
             preview.style.display = "block";
             downloadBtn.disabled = false; // Activer le bouton "Download"
+
         };
 
         reader.readAsDataURL(file);
@@ -55,18 +59,6 @@ nextButton.addEventListener("click", function() {
         displayImage();
     }
 });
-
-// Inférence (requête Flask)
-inferenceBtn.addEventListener("click", function() {
-    fetch('/inference', { method: 'GET' })
-    .then(response => response.json())  // Assurez-vous que la réponse est au format JSON
-    .then(data => alert(data.message))  // Affiche le message de la réponse JSON
-    .catch(error => console.error('Erreur:', error));
-});
-
-
-
-
 
 // Fonction pour sauvegarder les images sur le serveur
 saveBtn.addEventListener("click", function() {
@@ -104,6 +96,16 @@ downloadBtn.addEventListener("click", function() {
     const category = document.querySelector(".text-result-Category").innerText || "Aucune donnée";
     const uncertainty = document.querySelector(".text-result-Uncertainty").innerText || "Aucune donnée";
 
+    if (imageFiles.length > 0) {
+        const file = imageFiles[currentIndex];
+        const a = document.createElement("a");
+        a.href = preview.src;
+        a.download = file.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
     const fileContent = 
         "📋 List : " + list + "\n" +
         "🔍 Results : " + results + "\n" +
@@ -120,6 +122,7 @@ downloadBtn.addEventListener("click", function() {
     document.body.removeChild(a);
 });
 
+
 // Effets sur le bouton download
 downloadBtn.addEventListener("mouseenter", () => {
     downloadBtn.innerHTML = "📥 Download";
@@ -128,3 +131,12 @@ downloadBtn.addEventListener("mouseenter", () => {
 downloadBtn.addEventListener("mouseleave", () => {
     downloadBtn.innerHTML = "⬇ Download";
 });
+
+// Inférence (requête Flask)
+inferenceBtn.addEventListener("click", function() {
+    fetch('/inference', { method: 'GET' })
+    .then(response => response.json())  // Assurez-vous que la réponse est au format JSON
+    .then(data => alert(data.message))  // Affiche le message de la réponse JSON
+    .catch(error => console.error('Erreur:', error));
+});
+

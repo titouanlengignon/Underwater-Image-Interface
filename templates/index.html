@@ -7,6 +7,7 @@
     <title>Underwater Image Interface</title>
     
     <!-- Lien vers le fichier CSS dans le dossier "css" -->
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
@@ -33,6 +34,7 @@
 
         <div class="controls">
             <button class="button-arrow button-left" id="prevImage">◀</button>
+            
 
             <!-- Bouton pour sélectionner une image -->
             <input type="file" id="fileInput" multiple style="display: none;">
@@ -51,14 +53,17 @@
                 </form>
 
             <!-- Bouton pour télécharger le fichier texte -->
-            <button id="downloadBtn" class="button-download" disabled>Download</button>
+            <button id="downloadBtn" class="button-download" disabled> ⬇ Download</button>
             
             <!-- Bouton pour charger les prédictions de l'image  -->
             <button id="inference" class="button_inference" disabled> Inference</button>
+            
         </div>
     </div>
 
     <!-- Lien vers le fichier JavaScript dans le dossier "js" -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
 </html>
+
