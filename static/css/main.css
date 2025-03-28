@@ -116,7 +116,7 @@ body {
   width: 35rem; /* Largeur entre les trois bouton de gauche et le download */
 }
 
-.button-arrow, .button-load, .button-download, .button_interference {
+.button-arrow, .button-load, .button-download, .button_inference {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: bold;
@@ -170,7 +170,7 @@ body {
 }
 
 /* boutton interference */
-.button_interference {
+.button_inference {
   width: 30%;
   height: 100%;
   background: rgb(255, 255, 255);
@@ -178,13 +178,13 @@ body {
   margin-left: 2rem; /* Décale le bouton à droite */
 }
 /* Effets sur le bouton info */
-.button_interference:hover {
+.button_inference:hover {
   background: #9cd8e5; 
   color: #000; 
   transform: scale(1.03); /* Agrandir légèrement */
   transition: 0.3s; /* Animation fluide */
 }
-.button_interference:active {
+.button_inference:active {
   transform: scale(0.95); 
 }
 

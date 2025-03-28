@@ -8,7 +8,7 @@ const preview = document.getElementById("preview");
 const prevButton = document.getElementById("prevImage");
 const nextButton = document.getElementById("nextImage");
 const downloadBtn = document.getElementById("downloadBtn");
-const interference = document.getElementById("interference");
+const inference = document.getElementById("inference");
 
 
 console.log("Script chargé !");
@@ -77,21 +77,21 @@ downloadBtn.addEventListener("mouseleave", () => {
     downloadBtn.innerHTML = "⬇ Download";
 });
 
-// Interférence (requête Flask)
-if (interference) {
-    interference.addEventListener("click", function() {
+// Inférence (requête Flask)
+if (inference) {
+    inference.addEventListener("click", function() {
         if (imageFiles.length === 0) {
             alert("Veuillez d'abord sélectionner une image !");
             return;
         }
 
-        fetch('/interference', { method: 'GET' })
+        fetch('/inference', { method: 'GET' })
         .then(response => response.json())
         .then(data => alert(data.message))  // Affiche la réponse en alerte
         .catch(error => console.error('Erreur:', error));
     });
 } else {
-    console.error("Bouton 'Interference' non trouvé !");
+    console.error("Bouton 'Inference' non trouvé !");
 }
 
 
