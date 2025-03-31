@@ -1,5 +1,8 @@
 from flask import Flask, request, render_template, jsonify, send_from_directory
 import os
+import sys
+import glob
+import requests
 import time
 
 app = Flask(__name__,)
@@ -12,6 +15,25 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def send_images(host, port, image_dir):                                      
+    filepaths = glob.glob(image_dir+'/*.*')[:]
+    filepaths = [filepath.replace("\\", '/') for filepath in filepaths]
+    image = [('image', (open(filepath,'rb').read())) for
+            filepath in filepaths]
+    filenames = [('filenames', filepath.split('/')[-1]) for filepath in filepaths]
+    print(filenames)
+    
+    url = 'http://{}:{}/filenames'.format(host, port)
+    response = requests.post(url, json=filenames, verify=False)
+    #url = 'http://{}:{}/predict'.format(host, port)
+    #response = requests.post(url, files=image, verify=False)
+    
+    if response.status_code != 200:
+        raise Exception('Error calling API')
+    else:
+        print('API called successfully')
+        return response.json()
 
 @app.route('/')
 def index():
@@ -97,9 +119,11 @@ def save_results():
 
 @app.route('/inference', methods=['GET'])
 def inference():
+    send_images('172.17.0.3', 5500, app.config['UPLOAD_FOLDER'])
+    print("Envoi des images pour l'inférence...")
     result = {"message": "Inférence terminée avec succès !"}
     return jsonify(result)
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5500)
+    app.run(debug=True,host="0.0.0.0", port=5500)
