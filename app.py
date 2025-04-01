@@ -26,8 +26,8 @@ def send_images(host, port, image_dir):
     
     url = 'http://{}:{}/filenames'.format(host, port)
     response = requests.post(url, json=filenames, verify=False)
-    #url = 'http://{}:{}/predict'.format(host, port)
-    #response = requests.post(url, files=image, verify=False)
+    url = 'http://{}:{}/predict'.format(host, port)
+    response = requests.post(url, files=image, verify=False)
     
     if response.status_code != 200:
         raise Exception('Error calling API')
