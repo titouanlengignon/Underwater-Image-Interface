@@ -13,8 +13,8 @@ parser.add_argument('--train_task', type=str, default='Image_Classification', he
 parser.add_argument('--learning_model', type=str, default='CNN', help='Learning model to be trained')
 parser.add_argument('--backbone_name', type=str, default='None', help='Backbone name')
 parser.add_argument('--pretrained_backbone', type=bool, default=False, help='Use pretrained backbone')
-parser.add_argument('--new_size_rows', type=int, default=224, help='New size rows')
-parser.add_argument('--new_size_cols', type=int, default=224, help='New size columns')
+parser.add_argument('--new_size_rows', type=int, default=1024, help='New size rows')
+parser.add_argument('--new_size_cols', type=int, default=1024, help='New size columns')
 parser.add_argument('--image_channels', type=int, default=3, help='Number of image channels')
 parser.add_argument('--labels_type', type=str, default='onehot_labels', help='Labels type')
 args = parser.parse_args()
@@ -26,12 +26,13 @@ clss_dict = {"lithology":    {"class_number": 3, "class_names": ["Slab", "Sulfur
 
 class Models():
     def __init__(self, criteria = "lithology", architecture = "Vgg"):
+        self.args = args
         self.SESSIONS = []
         ROOT_DIR = "./trained_models/"
         self.criteria = criteria
         self.architectures = architecture
 
-        self.data = tf.placeholder(tf.float32, shape=[None, 224, 224, 3], name ='input_data')
+        self.data = tf.placeholder(tf.float32, shape=[None, self.args.new_size_rows, self.args.new_size_cols, 3], name ='input_data')
         
        
         args.class_number = clss_dict[criteria]["class_number"]     
@@ -49,6 +50,8 @@ class Models():
                 else:
                     print("first model")
                     classifier_output = model.learningmodel.build_Model(input_data=self.data, reuse = False, name="CNN")
+            self.prediction_c = classifier_output[-1]
+            ## Load the model weights
             sess = tf.Session()
             sess.run(tf.global_variables_initializer())
             print('[INFO] Loading model from: {}'.format(cnn_path))
@@ -63,3 +66,29 @@ class Models():
                 continue
             self.SESSIONS.append(sess)
         tf.compat.v1.reset_default_graph()
+
+    def predict(self, image, architecture):
+        """
+        Predict the class of the input image using the loaded models.
+        """
+        print("Predicting using architecture: ", architecture)
+        print(np.shape(image))
+        results = []
+        print("Number of sessions: ", len(self.SESSIONS))
+        image = self.preprocess_input(image)
+        for i, sess in enumerate(self.SESSIONS):
+            print("Predicting using session: ", i)
+            predictions = sess.run(self.prediction_c, feed_dict={self.data: image})
+            results.append(predictions) 
+        return results
+    
+    def preprocess_input(self, image):
+        """
+        Preprocess the input image for prediction.
+        """
+        # Perform any necessary preprocessing steps here
+        # For example, resizing, normalization, etc.
+        resized_image = np.zeros((1, self.args.new_size_rows, self.args.new_size_cols, self.args.image_channels))
+        resized_image[0,:,:,:] = np.resize(image, (self.args.new_size_rows, self.args.new_size_cols, self.args.image_channels))
+        normalized_image = resized_image / 255.0
+        return normalized_image
