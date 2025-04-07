@@ -4,6 +4,7 @@ import sys
 import glob
 import requests
 import time
+import csv
 
 app = Flask(__name__,)
 
@@ -17,23 +18,27 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def send_images(host, port, image_dir):                                      
-    filepaths = glob.glob(image_dir+'/*.*')[:]
-    filepaths = [filepath.replace("\\", '/') for filepath in filepaths]
-    image = [('image', (open(filepath,'rb').read())) for
-            filepath in filepaths]
-    filenames = [('filenames', filepath.split('/')[-1]) for filepath in filepaths]
-    print(filenames)
+    filepaths = glob.glob(image_dir + '/*.*')
+    filepaths = [fp.replace("\\", '/') for fp in filepaths if allowed_file(fp)]
+
+    filenames = [[str(i), os.path.basename(fp)] for i, fp in enumerate(filepaths)]
+    print("Fichiers envoyés :", filenames)
     
-    url = 'http://{}:{}/filenames'.format(host, port)
-    response = requests.post(url, json=filenames, verify=False)
-    url = 'http://{}:{}/predict'.format(host, port)
-    response = requests.post(url, files=image, verify=False)
-    
+    # Étape 1 : Envoi des noms de fichiers
+    url_filenames = f'http://{host}:{port}/filenames'
+    response = requests.post(url_filenames, json=filenames, verify=False)
+
+    # Étape 2 : Envoi des images
+    files = [('image', (os.path.basename(fp), open(fp, 'rb'), 'image/jpeg')) for fp in filepaths]
+    url_predict = f'http://{host}:{port}/predict'
+    response = requests.post(url_predict, files=files, verify=False)
+
     if response.status_code != 200:
-        raise Exception('Error calling API')
+        raise Exception('Erreur lors de la prédiction')
     else:
-        print('API called successfully')
+        print('Prédiction réussie')
         return response.json()
+
 
 @app.route('/')
 def index():
@@ -78,7 +83,7 @@ def get_images():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
 
 @app.route('/list_images', methods=['GET'])
 def list_images():
@@ -88,42 +93,56 @@ def list_images():
     
     return jsonify({"saved_images": image_files}), 200
 
+
+
+
+# SAVE RESULTS
 @app.route('/save_results', methods=['POST'])
 def save_results():
-    print("Requête reçue pour /save_results")  # Log pour vérifier si la requête arrive
-    
-    try:
-        results = {
-            "list": "Exemple de liste...",
-            "results": "Exemple de résultat...",
-            "category": "Exemple de catégorie...",
-            "uncertainty": "Exemple d'incertitude..."
-        }
-        
-        timestamp = int(time.time())
-        txt_filename = f"results_{timestamp}.txt"
-        txt_file_path = os.path.join(app.config['UPLOAD_FOLDER'], txt_filename)
+    print("Requête reçue pour /save_results")
 
-        with open(txt_file_path, 'w') as f:
-            f.write(f"📋 List: {results['list']}\n")
-            f.write(f"\n🔍 Results: {results['results']}\n")
-            f.write(f"\n🗂️ Category: {results['category']}\n")
-            f.write(f"\n❓ Uncertainty: {results['uncertainty']}\n")
+    try:
+        data = request.get_json()
+        results = data.get("results", [])
+
+        if not results:
+            return jsonify({"error": "Aucun résultat à sauvegarder"}), 400
+
+        timestamp = int(time.time())
+        csv_filename = f"results_{timestamp}.csv"
+        csv_file_path = os.path.join(app.config['UPLOAD_FOLDER'], csv_filename)
+
+        with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(['Fichier', 'Classe prédite', 'Indice de classe', 'Incertitude'])
+
+            for res in results:
+                pred = res["predictions"]["lithology"]
+                writer.writerow([
+                    res['filename'],
+                    pred['predicted_class'],
+                    pred['predicted_index'],
+                    f"{pred['uncertainty']:.4f}"
+                ])
 
         return jsonify({
-            "message": f"Fichier texte créé sous {txt_filename}"
+            "message": f"Résultats sauvegardés dans {csv_filename}",
+            "filename": csv_filename
         }), 200
-    
+
     except Exception as e:
-        return jsonify({"error": f"Erreur lors de la création du fichier texte: {str(e)}"}), 500
+        return jsonify({"error": f"Erreur lors de la sauvegarde : {str(e)}"}), 500
+
+
+# Inference
 
 @app.route('/inference', methods=['GET'])
 def inference():
-    inference_dict = send_images('172.17.0.3', 5500, app.config['UPLOAD_FOLDER'])
     print("Envoi des images pour l'inférence...")
-    result = {"message": "Inférence terminée avec succès !"}
-    print(inference_dict)
-    return jsonify(result)
+    inference_dict = send_images('172.17.0.2', 5500, app.config['UPLOAD_FOLDER'])
+    print("Résultat reçu :", inference_dict)
+    return jsonify(inference_dict)  # ⬅️ on retourne le vrai résultat
+
 
 
 if __name__ == '__main__':

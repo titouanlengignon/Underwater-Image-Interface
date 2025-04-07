@@ -8,7 +8,6 @@ const preview = document.getElementById("preview");
 const prevButton = document.getElementById("prevImage");
 const nextButton = document.getElementById("nextImage");
 const downloadBtn = document.getElementById("downloadBtn");
-const saveBtn = document.getElementById("saveBtn");
 const inferenceBtn = document.getElementById("inference"); 
 
 console.log("Script chargé !");
@@ -89,38 +88,42 @@ saveBtn.addEventListener("click", function() {
     });
 });
 
-// Téléchargement du fichier texte 
-downloadBtn.addEventListener("click", function() {
-    const list = document.querySelector(".text-result-List").innerText || "Aucune donnée";
-    const results = document.querySelector(".text-result-Results").innerText || "Aucune donnée";
-    const category = document.querySelector(".text-result-Category").innerText || "Aucune donnée";
-    const uncertainty = document.querySelector(".text-result-Uncertainty").innerText || "Aucune donnée";
-
-    if (imageFiles.length > 0) {
-        const file = imageFiles[currentIndex];
-        const a = document.createElement("a");
-        a.href = preview.src;
-        a.download = file.name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+// Bouton download en csv
+downloadBtn.addEventListener("click", function () {
+    if (!window.lastInferenceResults) {
+        alert("Aucun résultat à sauvegarder !");
+        return;
     }
 
-    const fileContent = 
-        "📋 List : " + list + "\n" +
-        "🔍 Results : " + results + "\n" +
-        "🗂️ Category : " + category + "\n" +
-        "❓ Uncertainty : " + uncertainty;
+    fetch('/save_results', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ results: window.lastInferenceResults })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.filename) {
+            // Création du lien et téléchargement automatique
+            const link = document.createElement("a");
+            link.href = `/uploads/${data.filename}`;
+            link.download = data.filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
 
-    const blob = new Blob([fileContent], { type: "text/plain" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "image_results.txt";
-
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+            alert("Résultats téléchargés avec succès !");
+        } else {
+            alert("Fichier généré mais nom de fichier manquant.");
+        }
+    })
+    .catch(error => {
+        console.error("Erreur lors de la sauvegarde :", error);
+        alert("Erreur lors de la sauvegarde.");
+    });
 });
+
 
 
 // Effets sur le bouton download
@@ -133,10 +136,33 @@ downloadBtn.addEventListener("mouseleave", () => {
 });
 
 // Inférence (requête Flask)
-inferenceBtn.addEventListener("click", function() {
+
+inferenceBtn.addEventListener("click", function () {
     fetch('/inference', { method: 'GET' })
-    .then(response => response.json())  // Assurez-vous que la réponse est au format JSON
-    .then(data => alert(data.message))  // Affiche le message de la réponse JSON
-    .catch(error => console.error('Erreur:', error));
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById("results-container");
+            container.innerHTML = ''; // Clear previous results
+
+            if (data.results && data.results.length > 0) {
+                data.results.forEach(result => {
+                    const div = document.createElement("div");
+                    div.className = "result-block";
+                    div.innerHTML = `
+                        <h3>🖼️ Fichier : ${result.filename}</h3>
+                        <p>📦 Classe prédite : <strong>${result.predictions.lithology.predicted_class}</strong></p>
+                        <p>❓ Incertitude : ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
+                        <hr>
+                    `;
+                    container.appendChild(div);
+                });
+
+                // Stocker les résultats pour sauvegarde
+                window.lastInferenceResults = data.results;
+            } else {
+                container.innerHTML = "<p>Aucune prédiction trouvée.</p>";
+            }
+        })
+        .catch(error => console.error('Erreur:', error));
 });
 
