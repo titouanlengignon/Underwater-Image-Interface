@@ -7,7 +7,6 @@
     <title>Underwater Image Interface</title>
     
     <!-- Lien vers le fichier CSS dans le dossier "css" -->
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
@@ -20,21 +19,20 @@
             <div class="image-container">
                 <img id="preview" class="image-preview" src="#" alt="Aucune image sélectionnée" style="display: none; max-width: 100%;">
             </div>
-            <div id ="results-container"class="sidebar">
+            <div id="results-container" class="sidebar">
                 <div class="option-text">📋 List</div>
-                    <div class="text-result-List"></div>
+                <div class="text-result-List"></div>
                 <div class="option-text">🔍 Results</div>
-                    <div class="text-result-Results"></div>
+                <div class="text-result-Results"></div>
                 <div class="option-text">🗂️ Category</div>
-                    <div class="text-result-Category"></div>
+                <div class="text-result-Category"></div>
                 <div class="option-text">❓ Uncertainty</div>
-                    <div class="text-result-Uncertainty"></div>
+                <div class="text-result-Uncertainty"></div>
             </div>
         </div>
 
         <div class="controls">
             <button class="button-arrow button-left" id="prevImage">◀</button>
-            
 
             <!-- Bouton pour sélectionner une image -->
             <input type="file" id="fileInput" multiple style="display: none;">
@@ -47,23 +45,20 @@
             <!-- Nouveau bouton pour sauvegarder sur le serveur -->
             <button id="saveBtn" class="button-save" disabled>Save on Server</button>
             
-                <!-- Formulaire d'upload d'images -->
-                <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data" style="display: none;">
-                    <input type="file" id="fileInput" name="file" multiple>
-                </form>
+            <!-- Formulaire d'upload d'images (correction de l'ID ici) -->
+            <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data" style="display: none;">
+                <input type="file" name="file" multiple>
+            </form>
 
             <!-- Bouton pour télécharger le fichier texte -->
             <button id="downloadBtn" class="button-download" disabled> ⬇ Download</button>
-            
+
             <!-- Bouton pour charger les prédictions de l'image  -->
             <button id="inference" class="button_inference" disabled> Inference</button>
-            
         </div>
     </div>
 
     <!-- Lien vers le fichier JavaScript dans le dossier "js" -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
 </body>
 </html>
-

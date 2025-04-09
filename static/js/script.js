@@ -23,8 +23,37 @@ fileInput.addEventListener("change", function(event) {
             inferenceBtn.disabled = false; // Activer le bouton d'inférence si l'élément existe
         }
         saveBtn.disabled = false; // Activer le bouton "Save on Server"
+
+        displayPredictionForCurrentImage(imageFiles[currentIndex].name);
+
     }
 });
+
+function displayPredictionForCurrentImage(filename) {
+    const container = document.getElementById("results-container");
+    container.innerHTML = ""; // Nettoyage avant affichage
+
+    if (!window.lastInferenceResults) return;
+
+    const result = window.lastInferenceResults.find(res => res.filename === filename);
+
+    if (result) {
+        container.innerHTML = `
+            <div class="prediction-card">
+                <h3> ${result.filename}</h3>
+                <p><strong> Classe prédite :</strong> ${result.predictions.lithology.predicted_class}</p>
+                <p><strong> Incertitude :</strong> ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
+            </div>
+        `;
+    } else {
+        container.innerHTML = `
+            <div class="prediction-card">
+                <p>Aucun résultat pour cette image.</p>
+            </div>
+        `;
+    }
+}
+
 
 // Affichage de l'image sélectionnée
 
@@ -49,6 +78,8 @@ prevButton.addEventListener("click", function() {
     if (imageFiles.length > 0 && currentIndex > 0) {
         currentIndex--;
         displayImage();
+        displayPredictionForCurrentImage(imageFiles[currentIndex].name);
+
     }
 });
 
@@ -56,6 +87,8 @@ nextButton.addEventListener("click", function() {
     if (imageFiles.length > 0 && currentIndex < imageFiles.length - 1) {
         currentIndex++;
         displayImage();
+        displayPredictionForCurrentImage(imageFiles[currentIndex].name);
+
     }
 });
 
@@ -149,9 +182,9 @@ inferenceBtn.addEventListener("click", function () {
                     const div = document.createElement("div");
                     div.className = "result-block";
                     div.innerHTML = `
-                        <h3>🖼️ Fichier : ${result.filename}</h3>
-                        <p>📦 Classe prédite : <strong>${result.predictions.lithology.predicted_class}</strong></p>
-                        <p>❓ Incertitude : ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
+                        <h3> Fichier : ${result.filename}</h3>
+                        <p> Classe prédite : <strong>${result.predictions.lithology.predicted_class}</strong></p>
+                        <p> Incertitude : ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
                         <hr>
                     `;
                     container.appendChild(div);
@@ -159,6 +192,8 @@ inferenceBtn.addEventListener("click", function () {
 
                 // Stocker les résultats pour sauvegarde
                 window.lastInferenceResults = data.results;
+                displayPredictionForCurrentImage(imageFiles[currentIndex].name);
+
             } else {
                 container.innerHTML = "<p>Aucune prédiction trouvée.</p>";
             }

@@ -139,7 +139,7 @@ def save_results():
 @app.route('/inference', methods=['GET'])
 def inference():
     print("Envoi des images pour l'inférence...")
-    inference_dict = send_images('172.17.0.2', 5500, app.config['UPLOAD_FOLDER'])
+    inference_dict = send_images('172.17.0.3', 5500, app.config['UPLOAD_FOLDER'])
     print("Résultat reçu :", inference_dict)
     return jsonify(inference_dict)  # ⬅️ on retourne le vrai résultat
 
