@@ -116,7 +116,9 @@ body {
   width: 35rem; /* Largeur entre les trois bouton de gauche et le download */
 }
 
-.button-arrow, .button-load, .button-download, .button_inference {
+
+
+.button-arrow, .button-load, .button-save,.button-download, .button_inference {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: bold;
@@ -137,19 +139,6 @@ body {
   margin-left: 10rem; /* Décale le bouton à droite */
 }
 
-
-.button-save {
-  width: 30%;
-  height: 100%;
-  margin-left: auto;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 2rem;
-  cursor: pointer;
-  background: #79d7f6;
-}
 /* Effets sur le bouton download */
 .button-download:hover {
   background: #9cd8e5; 
@@ -159,6 +148,29 @@ body {
 }
 .button-download:active {
   transform: scale(0.95); 
+}
+
+/* Bouton Save */
+.button-save {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  background: #9cd8e5;
+  color: #000;
+}
+
+.button-save:hover {
+  background: #ffffff;
+  color: #000;
+  transform: scale(1.03);
+  transition: 0.3s;
+}
+
+.button-save:active {
+  transform: scale(0.95);
 }
 
 /* Effets sur les boutons de navigation */
@@ -183,7 +195,7 @@ body {
   transform: scale(0.95); 
 }
 
-/* boutton interference */
+/* boutton inference */
 .button_inference {
   width: 30%;
   height: 100%;
@@ -191,7 +203,7 @@ body {
   color:#000;
   margin-left: 2rem; /* Décale le bouton à droite */
 }
-/* Effets sur le bouton info */
+/* Effets sur le bouton inference */
 .button_inference:hover {
   background: #9cd8e5; 
   color: #000; 
@@ -201,4 +213,46 @@ body {
 .button_inference:active {
   transform: scale(0.95); 
 }
+
+
+
+/* style pour l'affichage des resultats */
+
+#results-container {
+  background: rgba(3, 97, 191, 0.9);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.prediction-card {
+  background:  rgba(12, 115, 217, 0.9);
+  border-left: 5px solid #002147;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.prediction-card h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.prediction-card p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.prediction-card strong {
+  color: #28a745;
+  font-weight: bold;
+}
+
+
+
+
 
