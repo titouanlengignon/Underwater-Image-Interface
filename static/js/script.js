@@ -40,9 +40,9 @@ function displayPredictionForCurrentImage(filename) {
     if (result) {
         container.innerHTML = `
             <div class="prediction-card">
-                <h3> ${result.filename}</h3>
-                <p><strong> Classe prédite :</strong> ${result.predictions.lithology.predicted_class}</p>
-                <p><strong> Incertitude :</strong> ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
+                <h3> 📋 Name :\n${result.filename}</h3>
+                <p><strong> 🗂️ Category :</strong> ${result.predictions.lithology.predicted_class}</p>
+                <p><strong> ❓ Uncertainty :</strong> ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
             </div>
         `;
     } else {
@@ -182,9 +182,9 @@ inferenceBtn.addEventListener("click", function () {
                     const div = document.createElement("div");
                     div.className = "result-block";
                     div.innerHTML = `
-                        <h3> Fichier : ${result.filename}</h3>
-                        <p> Classe prédite : <strong>${result.predictions.lithology.predicted_class}</strong></p>
-                        <p> Incertitude : ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
+                        <p> 📋 Name :\n ${result.filename}</p>
+                        <p> 🗂️ Category : <strong>${result.predictions.lithology.predicted_class}</strong></p>
+                        <p> ❓ Uncertainty : ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
                         <hr>
                     `;
                     container.appendChild(div);

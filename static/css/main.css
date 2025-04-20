@@ -50,7 +50,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 80%;
-  height: 50vh; /* Même hauteur pour les deux rectangles */
+  height: 70%; /* Même hauteur pour les deux rectangles 50vh avant*/
   margin-top: 2rem;
 }
 
@@ -80,13 +80,15 @@ body {
 /* Sidebar = rect droite*/
 .sidebar {
   width: 30%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  height: 60%;
+}
+.tab_predict{
   background: rgba(3, 97, 191, 0.9);
+  display: flex;
+  gap: 1rem;
   padding: 1rem;
   border-radius: 1rem;
+  flex-direction: column;
 }
 
 /* Texte qui s'ajuste automatiquement */
@@ -113,7 +115,7 @@ body {
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
-  width: 35rem; /* Largeur entre les trois bouton de gauche et le download */
+  width: 60%; /* Largeur entre les trois bouton de gauche et le download */
 }
 
 
@@ -136,7 +138,7 @@ body {
   height: 100%;
   background: rgb(255, 255, 255);
   color:#000;
-  margin-left: 10rem; /* Décale le bouton à droite */
+  margin-left: 6rem; /* Décale le bouton à droite */
 }
 
 /* Effets sur le bouton download */
@@ -216,7 +218,7 @@ body {
 
 
 
-/* style pour l'affichage des resultats */
+/* style pour l'affichage des resultats 
 
 #results-container {
   background: rgba(3, 97, 191, 0.9);
@@ -225,7 +227,7 @@ body {
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', sans-serif;
   color: #333;
-}
+}*/
 
 .prediction-card {
   background:  rgba(12, 115, 217, 0.9);
