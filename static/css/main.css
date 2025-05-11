@@ -258,3 +258,57 @@ body {
 
 
 
+/*liste deroulante*/
+.dropdown-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0.5rem auto; /* Réduit l’espace vertical */
+  padding: 0.5rem 1rem; /* Optionnel : réduit le padding interne */
+  background: rgba(3, 97, 191, 0.85);
+  border-radius: 1rem;
+  width: fit-content;
+}
+
+
+.dropdown-label {
+  color: beige;
+  font-weight: bold;
+  font-size: 1rem;
+  white-space: nowrap;
+  margin: 0;
+}
+
+
+
+/*affichage temps de chargement */
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: (5rem);
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
+.hourglass {
+  width: 7rem;
+  height: 7rem;
+  border: 0.8rem solid transparent;
+  border-top: 0.8rem solid #ffffff;
+  border-bottom: 0.8rem solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 0.5rem;
+  margin-left: 10rem;
+  text-align: justify;
+}
+
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+ 

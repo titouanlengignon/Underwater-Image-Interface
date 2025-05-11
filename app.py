@@ -136,7 +136,7 @@ def save_results():
 
 # Inference
 
-@app.route('/inference', methods=['GET'])
+@app.route('/inference', methods=['POST'])
 def inference():
     print("Envoi des images pour l'inférence...")
     inference_dict = send_images('172.17.0.3', 5500, app.config['UPLOAD_FOLDER'])

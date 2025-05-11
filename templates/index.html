@@ -15,11 +15,25 @@
             <div class="bar-title">Interface for Underwater Image Analysis Using Deep Learning AI</div>
         </div>
 
+
+        <!-- liste déroulante --> 
+        <div class="dropdown-wrapper">
+            <label for="classChoice" class="dropdown-label">Choose a class:</label>
+            <select id="criterion-select">
+                <option value="lithology">Lithology</option>
+                <option value="SW_fragments">SW Fragments</option>
+                <option value="morphology">Morphology</option>
+                </select>
+        </div>
+
         <div class="main-section"> 
             <div class="image-container">
                 <img id="preview" class="image-preview" src="#" alt="Aucune image sélectionnée" style="display: none; max-width: 100%;">
             </div>
 
+            <div id="loader" class="spinner" style="display: none;">
+                <div class="hourglass"></div>
+                </div>
 
             <div id="results-container" class="sidebar">
                 <table class="tab_predict">

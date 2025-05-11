@@ -36,13 +36,15 @@ function displayPredictionForCurrentImage(filename) {
     if (!window.lastInferenceResults) return;
 
     const result = window.lastInferenceResults.find(res => res.filename === filename);
+    const criterion = document.getElementById("criterion-select").value;
 
-    if (result) {
+    if (result && result.predictions[criterion]) {
+        const prediction = result.predictions[criterion];
         container.innerHTML = `
             <div class="prediction-card">
-                <h3> 📋 Name :\n${result.filename}</h3>
-                <p><strong> 🗂️ Category :</strong> ${result.predictions.lithology.predicted_class}</p>
-                <p><strong> ❓ Uncertainty :</strong> ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
+                <h3> 📋 Name : ${result.filename}</h3>
+                <p><strong> 🗂️ Category :</strong> ${prediction.predicted_class}</p>
+                <p><strong> ❓ Uncertainty :</strong> ${prediction.uncertainty.toFixed(3)}</p>
             </div>
         `;
     } else {
@@ -53,6 +55,7 @@ function displayPredictionForCurrentImage(filename) {
         `;
     }
 }
+
 
 
 // Affichage de l'image sélectionnée
@@ -110,21 +113,21 @@ saveBtn.addEventListener("click", function() {
     .then(data => {
         if (data.length > 0) {
             // Affiche un message ou une action après l'upload réussi
-            alert("Les images ont été sauvegardées sur le serveur !");
-            console.log("Fichiers sauvegardés : ", data);
+            alert("Images have been saved on the server!");
+            console.log(" Saved files : ", data);
         } else {
-            alert("Erreur lors de l'upload des fichiers.");
+            alert("Error during file upload");
         }
     })
     .catch(error => {
-        console.error('Erreur lors de l\'upload:', error);
+        console.error("Upload error:", error);
     });
 });
 
 // Bouton download en csv
 downloadBtn.addEventListener("click", function () {
     if (!window.lastInferenceResults) {
-        alert("Aucun résultat à sauvegarder !");
+        alert("No results to save!");
         return;
     }
 
@@ -146,14 +149,14 @@ downloadBtn.addEventListener("click", function () {
             link.click();
             document.body.removeChild(link);
 
-            alert("Résultats téléchargés avec succès !");
+            alert("Results downloaded successfully!");
         } else {
-            alert("Fichier généré mais nom de fichier manquant.");
+            alert("File generated but filename is missing.");
         }
     })
     .catch(error => {
-        console.error("Erreur lors de la sauvegarde :", error);
-        alert("Erreur lors de la sauvegarde.");
+        console.error("Error during saving :", error);
+        alert("Error during saving.");
     });
 });
 
@@ -169,35 +172,65 @@ downloadBtn.addEventListener("mouseleave", () => {
 });
 
 // Inférence (requête Flask)
-
 inferenceBtn.addEventListener("click", function () {
-    fetch('/inference', { method: 'GET' })
-        .then(response => response.json())
-        .then(data => {
-            const container = document.getElementById("results-container");
-            container.innerHTML = ''; // Clear previous results
+    const criterion = document.getElementById("criterion-select").value;
+    const formData = new FormData();
+    formData.append("criterion", criterion);
 
-            if (data.results && data.results.length > 0) {
-                data.results.forEach(result => {
-                    const div = document.createElement("div");
-                    div.className = "result-block";
+    // 👉 Afficher le loader
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "block";
+
+    fetch('/inference', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // ❌ Cacher le loader une fois terminé
+        if (loader) loader.style.display = "none";
+
+        const container = document.getElementById("results-container");
+        container.innerHTML = ''; // Clear previous results
+
+        if (data.results && data.results.length > 0) {
+            const criterion = document.getElementById("criterion-select").value;
+
+            data.results.forEach(result => {
+                const pred = result.predictions[criterion];
+                const div = document.createElement("div");
+                div.className = "result-block";
+
+                if (pred) {
                     div.innerHTML = `
-                        <p> 📋 Name :\n ${result.filename}</p>
-                        <p> 🗂️ Category : <strong>${result.predictions.lithology.predicted_class}</strong></p>
-                        <p> ❓ Uncertainty : ${result.predictions.lithology.uncertainty.toFixed(3)}</p>
+                        <p> 📋 Name : ${result.filename}</p>
+                        <p> 🗂️ Category : <strong>${pred.predicted_class}</strong></p>
+                        <p> ❓ Uncertainty : ${pred.uncertainty.toFixed(3)}</p>
                         <hr>
                     `;
-                    container.appendChild(div);
-                });
+                } else {
+                    div.innerHTML = `
+                        <p> 📋 Name : ${result.filename}</p>
+                        <p> ⚠️ No results for the selected criterion (${criterion})</p>
+                        <hr>
+                    `;
+                }
 
-                // Stocker les résultats pour sauvegarde
-                window.lastInferenceResults = data.results;
-                displayPredictionForCurrentImage(imageFiles[currentIndex].name);
+                container.appendChild(div);
+            });
 
-            } else {
-                container.innerHTML = "<p>Aucune prédiction trouvée.</p>";
-            }
-        })
-        .catch(error => console.error('Erreur:', error));
+            document.getElementById("criterion-select").addEventListener("change", () => {
+                displayPredictionForCurrentImage(imageFiles[currentIndex]?.name);
+            });
+
+            window.lastInferenceResults = data.results;
+            displayPredictionForCurrentImage(imageFiles[currentIndex].name);
+        } else {
+            container.innerHTML = "<p>No predictions found</p>";
+        }
+    })
+    .catch(error => {
+        if (loader) loader.style.display = "none"; // ❌ Cacher même en cas d'erreur
+        console.error('Erreur:', error);
+    });
 });
-
